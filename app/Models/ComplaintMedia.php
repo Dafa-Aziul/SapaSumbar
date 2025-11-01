@@ -11,12 +11,18 @@ class ComplaintMedia extends Model
 
     protected $fillable = [
         'complaint_id',
-        'file_url',
+        'media_path',
         'file_type',
     ];
 
     public function complaint()
     {
         return $this->belongsTo(Complaint::class);
+    }
+
+    // accessor otomatis: hasilkan URL publik dari media_path
+    public function getFileUrlAttribute()
+    {
+        return $this->media_path ? asset('storage/' . $this->media_path) : null;
     }
 }

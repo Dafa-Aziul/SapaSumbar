@@ -4,33 +4,23 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateComplaintsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->onDelete('cascade');
-            $table->foreignId('category_id')
-                ->constrained('categories')
-                ->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->text('content');
-            $table->string('status', 50)->default('terkirim');
+            $table->enum('status', ['pending', 'in_progress', 'resolved'])->default('pending');
             $table->timestamps();
-            $table->softDeletes(); // ✅ tambahkan kolom deleted_at untuk soft delete
+            $table->softDeletes();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('complaints');
     }
-};
+}
