@@ -98,8 +98,8 @@
     {{-- Gambar (jika ada) --}}
     @if($complaint->media && $complaint->media->count() > 0)
     <div class="report-image" style="margin-top: 12px;">
-        <img 
-            src="{{ asset($complaint->media->first()->file_url) }}" 
+        <img
+            src="{{ asset($complaint->media->first()->file_url) }}"
             alt="Gambar laporan"
             style="
                 width: 100%;
@@ -161,7 +161,7 @@
         margin-top: 12px;
     ">
         {{-- Vote Button --}}
-        <button 
+        <button
             wire:click="vote"
             class="vote-button"
             style="
@@ -187,7 +187,7 @@
         </button>
 
         {{-- Comment Button --}}
-        <button 
+        <button
             class="comment-button"
             style="
                 display: flex;
@@ -226,16 +226,16 @@
                 width: 100% !important;
                 padding: 16px !important;
             }
-            
+
             .report-description {
                 font-size: 13px !important;
             }
-            
+
             .vote-button,
             .comment-button {
                 font-size: 12px !important;
             }
-            
+
             .vote-button svg,
             .comment-button svg {
                 width: 14px !important;

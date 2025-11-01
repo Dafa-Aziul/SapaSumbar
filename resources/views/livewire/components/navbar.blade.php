@@ -4,8 +4,8 @@
     <div class="flex items-center gap-1 flex-shrink-0">
         {{-- Logo Box --}}
         <div class="flex items-center justify-center flex-shrink-0">
-            <img 
-                src="{{ asset('image/SapaSumbar.png') }}" 
+            <img
+                src="{{ asset('image/SapaSumbar.png') }}"
                 alt="Sapa Sumbar Logo"
                 class="h-25 w-auto object-contain md:h-25"
                 style="max-height: 125px;"
@@ -23,10 +23,10 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             {{-- Input Field --}}
-            <input 
-                type="text" 
+            <input
+                type="text"
                 wire:model.live.debounce.300ms="searchQuery"
-                placeholder="Cari Pengaduan" 
+                placeholder="Cari Pengaduan"
                 class="w-full h-full bg-transparent border-none outline-none text-[#212121] placeholder:text-[#9E9E9E] text-sm pl-9 pr-3 rounded-lg focus:ring-2 focus:ring-[#C1121F] focus:ring-opacity-50"
             />
         </div>
@@ -109,7 +109,7 @@
     {{-- Mobile Menu Button & Search --}}
     <div class="flex md:hidden items-center gap-3">
         {{-- Sidebar Toggle Button --}}
-        <button 
+        <button
             onclick="window.dispatchEvent(new CustomEvent('toggle-sidebar'))"
             class="p-2 text-[#757575] hover:text-[#C1121F] transition-colors"
         >
@@ -117,14 +117,14 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
         </button>
-        
+
         {{-- Mobile Search Icon --}}
         <button wire:click="$toggle('showMobileSearch')" class="p-2 text-[#757575] hover:text-[#C1121F] transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
         </button>
-        
+
         {{-- Mobile Menu Toggle --}}
         <button wire:click="$toggle('showMobileMenu')" class="p-2 text-[#757575] hover:text-[#C1121F] transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -140,10 +140,10 @@
             <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#9E9E9E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            <input 
-                type="text" 
+            <input
+                type="text"
                 wire:model.live.debounce.300ms="searchQuery"
-                placeholder="Cari Pengaduan" 
+                placeholder="Cari Pengaduan"
                 class="w-full h-full bg-transparent border-none outline-none text-[#212121] placeholder:text-[#9E9E9E] text-sm pl-9 pr-3 rounded-lg"
                 wire:blur="$set('showMobileSearch', false)"
             />

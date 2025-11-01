@@ -8,14 +8,15 @@ class SidebarRight extends Component
 {
     public $showFilterDropdown = false;
     public $showFilterStatusDropdown = false;
-    
+
     public $filterStatus = [
         'diproses' => true,  // Active
-        'selesai' => false,  // Inactive
+        'selesai'  => false, // Inactive
     ];
-    
+
     public $sortBy = 'terbaru'; // 'terbaru' or 'terpopuler'
 
+    /** 🔄 Toggle Filter Visibility */
     public function toggleFilterDropdown()
     {
         $this->showFilterDropdown = !$this->showFilterDropdown;
@@ -26,23 +27,32 @@ class SidebarRight extends Component
         $this->showFilterStatusDropdown = !$this->showFilterStatusDropdown;
     }
 
+    /** ✅ Ubah status filter */
     public function toggleFilterStatus($status)
     {
-        $this->filterStatus[$status] = !$this->filterStatus[$status];
+        if (array_key_exists($status, $this->filterStatus)) {
+            $this->filterStatus[$status] = !$this->filterStatus[$status];
+        }
     }
 
+    /** 🔽 Ganti urutan daftar laporan */
     public function setSortBy($sort)
     {
         $this->sortBy = $sort;
+        $this->dispatch('sortChanged', sort: $sort);
     }
 
+    /** 🟥 Tombol “Buat Pengaduan” → buka modal di komponen lain */
     public function createReport()
     {
-        // Handler untuk tombol buat pengaduan
-        // Bisa diubah ke redirect atau emit event sesuai kebutuhan
-        // return redirect()->route('pengaduan.create');
-        $this->dispatch('open-create-modal');
+        // Event Livewire ke komponen lain
+        $this->dispatch('openCreateComplaintModal');
+
+        // Event ke browser (AlpineJS)
+        $this->dispatch('open-create-complaint-modal', [], true);
     }
+
+
 
     public function render()
     {

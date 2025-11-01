@@ -102,8 +102,8 @@
 
             {{-- Gambar --}}
             <div class="report-image" style="margin-top: 12px;">
-                <img 
-                    src="{{ asset('image/fotobus.jpg') }}" 
+                <img
+                    src="{{ asset('image/fotobus.jpg') }}"
                     alt="Gambar laporan"
                     style="
                         width: 100%;
@@ -148,7 +148,7 @@
                 margin-top: 12px;
             ">
                 {{-- Vote Button --}}
-                <button 
+                <button
                     class="vote-button"
                     style="
                         display: flex;
@@ -173,7 +173,7 @@
                 </button>
 
                 {{-- Comment Button --}}
-                <button 
+                <button
                     class="comment-button"
                     style="
                         display: flex;
@@ -207,7 +207,7 @@
         .report-list-container {
             padding: 16px !important;
         }
-        
+
         .report-card {
             width: 100% !important;
             padding: 16px !important;
@@ -218,21 +218,21 @@
         .report-list-container {
             padding: 12px !important;
         }
-        
+
         .report-card {
             width: 100% !important;
             padding: 16px !important;
         }
-        
+
         .report-description {
             font-size: 13px !important;
         }
-        
+
         .vote-button,
         .comment-button {
             font-size: 12px !important;
         }
-        
+
         .vote-button svg,
         .comment-button svg {
             width: 14px !important;

@@ -1,9 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterUserController;
-use App\Http\Controllers\Auth\OtpVerificationController;
 use App\Http\Controllers\Auth\LoginUserController;
+use App\Http\Controllers\Auth\OtpVerificationController;
+use App\Http\Controllers\Auth\RegisterUserController;
+use App\Livewire\Homepage\Index;
+use Illuminate\Support\Facades\Route;
+
 
 // Register
 Route::get('/register', [RegisterUserController::class, 'showRegisterForm'])->name('register.show');
@@ -21,9 +23,7 @@ Route::post('/logout', [LoginUserController::class, 'logout'])->middleware('auth
 // Semua route di bawah hanya bisa diakses jika sudah login
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/', function () {
-        return view('pages.home');
-    })->name('home');
+    Route::get('/', Index::class)->name('home');
 
     Route::get('/pengaduan-saya', function () {
         return view('pages.pengaduan-saya');
