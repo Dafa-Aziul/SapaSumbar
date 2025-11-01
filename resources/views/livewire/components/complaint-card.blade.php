@@ -31,14 +31,16 @@
                 color: #1565C0;
                 flex-shrink: 0;
             ">
-                {{ strtoupper(substr($complaint->user->name ?? 'U', 0, 1)) }}
+                {{-- 🟩 Jika anonim, tampilkan huruf “A” --}}
+                {{ $complaint->is_anonymous ? 'A' : strtoupper(substr($complaint->user->name ?? 'U', 0, 1)) }}
             </div>
 
             {{-- Nama, Kategori, Status --}}
             <div style="flex: 1; min-width: 0;">
                 <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
+                    {{-- 🟩 Jika anonim, tampilkan teks “Anonim” --}}
                     <span style="font-size: 15px; font-weight: 600; color: #212121;">
-                        {{ $complaint->user->name ?? 'Anonim' }}
+                        {{ $complaint->is_anonymous ? 'Anonim' : ($complaint->user->name ?? 'Pengguna') }}
                     </span>
 
                     {{-- Kategori --}}
@@ -131,24 +133,24 @@
     </div>
     @endif
 
-    {{-- Status Box (hanya jika diproses / selesai) --}}
+    {{-- Status Box (diproses / selesai) --}}
     @if(in_array($complaint->status, ['diproses', 'selesai']))
     @php
-    $statusStyles = [
-    'diproses' => [
-    'bg' => '#FFF8E1',
-    'border' => '#FBC02D',
-    'title' => 'Sedang Diproses',
-    'desc' => 'Laporan Anda sedang ditinjau oleh pihak terkait.',
-    ],
-    'selesai' => [
-    'bg' => '#E8F5E9',
-    'border' => '#4CAF50',
-    'title' => 'Laporan Selesai',
-    'desc' => 'Laporan Anda telah selesai ditindaklanjuti. Terima kasih atas partisipasi Anda!',
-    ],
-    ];
-    $style = $statusStyles[$complaint->status];
+        $statusStyles = [
+            'diproses' => [
+                'bg' => '#FFF8E1',
+                'border' => '#FBC02D',
+                'title' => 'Sedang Diproses',
+                'desc' => 'Laporan Anda sedang ditinjau oleh pihak terkait.',
+            ],
+            'selesai' => [
+                'bg' => '#E8F5E9',
+                'border' => '#4CAF50',
+                'title' => 'Laporan Selesai',
+                'desc' => 'Laporan Anda telah selesai ditindaklanjuti. Terima kasih atas partisipasi Anda!',
+            ],
+        ];
+        $style = $statusStyles[$complaint->status];
     @endphp
 
     <div class="report-status" style="

@@ -158,6 +158,16 @@
                     @enderror
                 </div>
 
+                <div class="mt-3">
+    <label class="flex items-center space-x-2">
+        <input type="checkbox" wire:model="is_anonymous" class="rounded text-blue-600">
+        <span class="text-sm text-gray-700">
+            Laporkan secara anonim (identitas tidak akan ditampilkan ke publik)
+        </span>
+    </label>
+</div>
+
+
                 {{-- Submit Area (Bottom Action) --}}
                 <div class="flex justify-end gap-3 mt-2">
                     <button type="button" wire:click="closeModal"
