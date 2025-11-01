@@ -17,20 +17,46 @@ class LoginUserController extends Controller
     // Proses login
     public function login(Request $request)
     {
+        // Validasi input
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
+        // Coba login
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard'); // redirect ke dashboard
+
+            $user = Auth::user(); // ambil data user yang login
+
+            // Jika yang login adalah admin, tampilkan pesan peringatan
+            if ($user->role === 'admin') {
+                Auth::logout(); // logoutkan langsung
+                return redirect()->route('login')->withErrors([
+                    'email' => 'Halaman ini bukan tempat admin login.',
+                ]);
+            }
+
+            // Jika role user biasa, arahkan ke dashboard
+            if ($user->role === 'user') {
+                return redirect()->intended('/dashboard')
+                    ->with('success', 'Selamat datang di dashboard!');
+            }
+
+            // Jika role tidak dikenali
+            Auth::logout();
+            return redirect()->route('login')->withErrors([
+                'email' => 'Role pengguna tidak dikenali.',
+            ]);
         }
 
+        // Jika login gagal
         return back()->withErrors([
-            'email' => 'Email atau password salah',
-        ]);
+            'email' => 'Email atau password salah.',
+        ])->withInput();
     }
+
+
 
     // Logout
     public function logout(Request $request)
@@ -39,6 +65,6 @@ class LoginUserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login.show')->with('info', 'Berhasil logout.');
+        return redirect()->route('login')->with('info', 'Berhasil logout.');
     }
 }

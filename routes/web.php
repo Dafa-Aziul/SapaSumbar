@@ -14,12 +14,12 @@ Route::get('/verify-otp', [OtpVerificationController::class, 'showForm'])->name(
 Route::post('/verify-otp', [OtpVerificationController::class, 'verify'])->name('otp.verify');
 
 // Login / Logout
-Route::get('/login', [LoginUserController::class, 'showLoginForm'])->name('login.show');
+Route::get('/login', [LoginUserController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginUserController::class, 'login'])->name('login.store');
 Route::post('/logout', [LoginUserController::class, 'logout'])->middleware('auth')->name('logout');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/', function () {
+    return view('homepage');
 })->middleware('auth')->name('dashboard');
 
 
