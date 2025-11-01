@@ -1,23 +1,23 @@
 <div>
-    <div 
+    <div
         x-data="{ open: @entangle('showMobileSidebar') }"
         @toggle-sidebar.window="open = !open"
     >
-        {{-- Desktop & Tablet Sidebar --}}
-        <aside class="hidden lg:flex flex-col w-60 h-screen bg-[#FAFAFA] border-r border-[#E0E0E0] font-['Inter','Roboto',sans-serif] text-[#424242] sticky top-16 overflow-y-auto" style="padding: 24px 16px;">
+        {{-- Desktop & Tablet Sidebar (SUDAH DIPERBAIKI) --}}
+        <aside class="hidden lg:flex flex-col w-60 bg-[#FAFAFA] border-r border-[#E0E0E0] font-['Inter','Roboto',sans-serif] text-[#424242] fixed top-16 bottom-0 overflow-y-auto" style="padding: 24px 16px;">
             {{-- Section: Kategori --}}
             <section style="margin-bottom: 24px;">
                 {{-- Title Kategori --}}
                 <h2 class="text-[13px] font-bold text-[#616161] mb-2 tracking-[0.3px]">Kategori</h2>
-                
+
                 {{-- Menu Items --}}
                 <div class="flex flex-col" style="gap: 4px;">
                     @foreach($categories as $category)
-                        <button 
+                        <button
                             wire:click="selectCategory('{{ $category['id'] }}')"
                             class="h-10 w-full flex items-center px-3 py-2 rounded-lg gap-3 text-sm font-medium cursor-pointer transition-all duration-200
-                                {{ $activeCategory === $category['id'] 
-                                    ? 'bg-[#FFEAEA] text-[#E53935]' 
+                                {{ $activeCategory === $category['id']
+                                    ? 'bg-[#FFEAEA] text-[#E53935]'
                                     : 'bg-transparent text-[#424242] hover:bg-[#FFF2F2] hover:text-[#E53935]'
                                 }}"
                         >
@@ -45,7 +45,7 @@
                                     </svg>
                                 @endif
                             </span>
-                            
+
                             {{-- Label --}}
                             <span class="flex-1 text-left tracking-[0.2px]">{{ $category['label'] }}</span>
                         </button>
@@ -57,7 +57,7 @@
             <section class="border-t border-[#E0E0E0]" style="margin-top: 24px; padding-top: 16px;">
                 {{-- Title Statistik --}}
                 <h2 class="text-[13px] font-semibold text-[#616161] mb-2">Statistik</h2>
-                
+
                 {{-- Statistik Items --}}
                 <div class="flex flex-col" style="gap: 8px;">
                     @foreach($statistics as $stat)
@@ -72,29 +72,29 @@
             </section>
         </aside>
 
-        {{-- Mobile Sidebar Overlay & Sidebar --}}
+        {{-- Mobile Sidebar Overlay & Sidebar (TIDAK PERLU DIUBAH) --}}
         <div x-show="open" x-cloak>
             {{-- Overlay --}}
-            <div 
+            <div
                 @click="open = false"
                 class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
             ></div>
-            
+
             {{-- Mobile Sidebar --}}
             <aside class="fixed left-0 top-0 h-screen w-60 bg-[#FAFAFA] border-r border-[#E0E0E0] font-['Inter','Roboto',sans-serif] text-[#424242] z-50 overflow-y-auto lg:hidden" style="padding: 24px 16px;">
                 {{-- Section: Kategori --}}
                 <section style="margin-bottom: 24px;">
                     {{-- Title Kategori --}}
                     <h2 class="text-[13px] font-bold text-[#616161] mb-2 tracking-[0.3px]">Kategori</h2>
-                    
+
                     {{-- Menu Items --}}
                     <div class="flex flex-col" style="gap: 4px;">
                         @foreach($categories as $category)
-                            <button 
+                            <button
                                 wire:click="selectCategory('{{ $category['id'] }}')"
                                 class="h-10 w-full flex items-center px-3 py-2 rounded-lg gap-3 text-sm font-medium cursor-pointer transition-all duration-200
-                                    {{ $activeCategory === $category['id'] 
-                                        ? 'bg-[#FFEAEA] text-[#E53935]' 
+                                    {{ $activeCategory === $category['id']
+                                        ? 'bg-[#FFEAEA] text-[#E53935]'
                                         : 'bg-transparent text-[#424242] hover:bg-[#FFF2F2] hover:text-[#E53935]'
                                     }}"
                             >
@@ -122,7 +122,7 @@
                                         </svg>
                                     @endif
                                 </span>
-                                
+
                                 {{-- Label --}}
                                 <span class="flex-1 text-left tracking-[0.2px]">{{ $category['label'] }}</span>
                             </button>
@@ -134,7 +134,7 @@
                 <section class="border-t border-[#E0E0E0]" style="margin-top: 24px; padding-top: 16px;">
                     {{-- Title Statistik --}}
                     <h2 class="text-[13px] font-semibold text-[#616161] mb-2">Statistik</h2>
-                    
+
                     {{-- Statistik Items --}}
                     <div class="flex flex-col" style="gap: 8px;">
                         @foreach($statistics as $stat)
@@ -149,7 +149,7 @@
                 </section>
             </aside>
         </div>
-        
+
         {{-- Alpine.js x-cloak style --}}
         <style>
             [x-cloak] { display: none !important; }
