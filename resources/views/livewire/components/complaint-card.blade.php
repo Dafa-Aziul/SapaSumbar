@@ -50,14 +50,11 @@
 
             {{-- Konten kanan --}}
             <div style="flex: 1; min-width: 0;">
-                {{-- Nama + kategori + status + tombol tindak --}}
-                <div
-                    style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-                    {{-- Bagian kiri: nama, kategori, status --}}
-                    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
-                        <span style="font-size: 15px; font-weight: 600; color: #212121;">
-                            {{ $complaint->user->name ?? 'Anonim' }}
-                        </span>
+                <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
+                    {{-- 🟩 Jika anonim, tampilkan teks “Anonim” --}}
+                    <span style="font-size: 15px; font-weight: 600; color: #212121;">
+                        {{ $complaint->is_anonymous ? 'Anonim' : ($complaint->user->name ?? 'Pengguna') }}
+                    </span>
 
                         {{-- Kategori --}}
                         @if($complaint->category)
@@ -168,7 +165,7 @@
     {{-- Gambar --}}
     @if($complaint->media && $complaint->media->count() > 0)
     <div class="report-image" style="margin-top: 12px;">
-        <img src="{{ asset($complaint->media->first()->file_url) }}" alt="Gambar laporan" style="
+        <img src="{{ Storage::url($complaint->media->first()->file_url) }}" alt="Gambar laporan" style="
                     width: 100%;
                     border-radius: 10px;
                     object-fit: cover;
@@ -176,7 +173,7 @@
     </div>
     @endif
 
-    {{-- Status Box (hanya jika diproses / selesai) --}}
+    {{-- Status Box (diproses / selesai) --}}
     @if(in_array($complaint->status, ['diproses', 'selesai']))
     @php
     $statusStyles = [

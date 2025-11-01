@@ -16,6 +16,7 @@ class Complaint extends Model
         'content',
         'status',
         'location',
+        'is_anonymous',
     ];
 
     public function user()
