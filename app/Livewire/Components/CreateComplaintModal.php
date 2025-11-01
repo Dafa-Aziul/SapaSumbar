@@ -76,11 +76,8 @@ class CreateComplaintModal extends Component
             'category_id' => $this->kategori,
             'content' => $this->deskripsi,
             'location' => $this->lokasi,
-<<<<<<< HEAD
-=======
             'status' => 'terkirim',
             'is_anonymous' => $this->is_anonymous, // 🆕
->>>>>>> 3752c4957490cf47d81c089ea6ad3d3021ea2b77
         ]);
 
         // 🔹 Upload foto (jika ada)

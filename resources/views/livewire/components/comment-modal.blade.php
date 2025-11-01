@@ -25,7 +25,7 @@
                 <div class="w-1/2 h-full bg-gray-100 overflow-hidden">
                     @if($complaint && $complaint->media && $complaint->media->first())
                         <img
-                            src="{{ asset($complaint->media->first()->file_url) }}"
+                            src="{{ Storage::url($complaint->media->first()->file_url) }}"
                             alt="Gambar Pengaduan"
                             class="w-full h-full object-cover"
                         />

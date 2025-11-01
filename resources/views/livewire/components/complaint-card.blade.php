@@ -125,7 +125,7 @@
     {{-- Gambar --}}
     @if($complaint->media && $complaint->media->count() > 0)
     <div class="report-image" style="margin-top: 12px;">
-        <img src="{{ asset($complaint->media->first()->file_url) }}" alt="Gambar laporan" style="
+        <img src="{{ Storage::url($complaint->media->first()->file_url) }}" alt="Gambar laporan" style="
                     width: 100%;
                     border-radius: 10px;
                     object-fit: cover;
