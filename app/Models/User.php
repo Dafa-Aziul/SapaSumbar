@@ -57,4 +57,30 @@ class User extends Authenticatable implements FilamentUser
         // Hanya user dengan role 'admin' yang boleh masuk ke panel Filament
         return $this->role === 'admin';
     }
+
+    // 🔗 Relasi
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
+    public function responses()
+    {
+        return $this->hasMany(Response::class);
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'reporter_id');
+    }
+
+    public function handledProgress()
+    {
+        return $this->hasMany(ComplaintProgress::class, 'admin_id');
+    }
 }
