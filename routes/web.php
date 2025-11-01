@@ -18,8 +18,6 @@ Route::get('/login', [LoginUserController::class, 'showLoginForm'])->name('login
 Route::post('/login', [LoginUserController::class, 'login'])->name('login.store');
 Route::post('/logout', [LoginUserController::class, 'logout'])->middleware('auth')->name('logout');
 
-use Illuminate\Support\Facades\Route;
-
 // Semua route di bawah hanya bisa diakses jika sudah login
 Route::middleware(['auth'])->group(function () {
 
