@@ -13,14 +13,13 @@
     flex-direction: column;
     font-family: 'Inter', 'Roboto', sans-serif;
     color: #212121;
+    position: relative;
 ">
-    {{-- Header --}}
-    <div class="report-header" style="margin-bottom: 8px; position: relative;">
-        {{-- Yellow indicator aligned with title --}}
-        <div style="
+    {{-- Yellow indicator in top right corner --}}
+    <div style="
         position: absolute;
-        top: 8px;
-        right: 0;
+        top: 12px;
+        right: 12px;
         width: 12px;
         height: 12px;
         background-color: #FFC107;
@@ -29,44 +28,46 @@
         box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     "></div>
 
-        {{-- Wrapper utama --}}
+    {{-- Header --}}
+    <div class="report-header" style="margin-bottom: 12px;">
         <div style="display: flex; align-items: flex-start; gap: 12px;">
             {{-- Avatar --}}
             <div class="avatar" style="
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #E3F2FD;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-weight: 600;
-            color: #1565C0;
-            flex-shrink: 0;
-        ">
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: #E3F2FD;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px;
+                font-weight: 600;
+                color: #1565C0;
+                flex-shrink: 0;
+            ">
                 {{ strtoupper(substr($complaint->user->name ?? 'U', 0, 1)) }}
             </div>
 
-            {{-- Konten kanan --}}
+            {{-- Content --}}
             <div style="flex: 1; min-width: 0;">
-                <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
-                    {{-- 🟩 Jika anonim, tampilkan teks “Anonim” --}}
-                    <span style="font-size: 15px; font-weight: 600; color: #212121;">
-                        {{ $complaint->is_anonymous ? 'Anonim' : ($complaint->user->name ?? 'Pengguna') }}
-                    </span>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
+                        {{-- User Name --}}
+                        <span style="font-size: 15px; font-weight: 600; color: #212121;">
+                            {{ $complaint->is_anonymous ? 'Anonim' : ($complaint->user->name ?? 'Pengguna') }}
+                        </span>
 
-                        {{-- Kategori --}}
+                        {{-- Category --}}
                         @if($complaint->category)
                         <span style="
-                        background-color: #FFF8E1;
-                        color: #FBC02D;
-                        font-size: 12px;
-                        font-weight: 600;
-                        padding: 2px 8px;
-                        border-radius: 6px;
-                        white-space: nowrap;
-                    ">
+                            background-color: #FFF8E1;
+                            color: #FBC02D;
+                            font-size: 12px;
+                            font-weight: 600;
+                            padding: 2px 8px;
+                            border-radius: 6px;
+                            white-space: nowrap;
+                        ">
                             {{ $complaint->category->name }}
                         </span>
                         @endif
@@ -74,49 +75,49 @@
                         {{-- Status --}}
                         @if($complaint->status === 'diproses')
                         <span style="
-                        background-color: #FFF3CD;
-                        color: #FBC02D;
-                        font-size: 12px;
-                        font-weight: 600;
-                        padding: 2px 8px;
-                        border-radius: 6px;
-                        white-space: nowrap;
-                    ">
+                            background-color: #FFF3CD;
+                            color: #FBC02D;
+                            font-size: 12px;
+                            font-weight: 600;
+                            padding: 2px 8px;
+                            border-radius: 6px;
+                            white-space: nowrap;
+                        ">
                             Diproses
                         </span>
                         @elseif($complaint->status === 'selesai')
                         <span style="
-                        background-color: #E8F5E9;
-                        color: #4CAF50;
-                        font-size: 12px;
-                        font-weight: 600;
-                        padding: 2px 8px;
-                        border-radius: 6px;
-                        white-space: nowrap;
-                    ">
+                            background-color: #E8F5E9;
+                            color: #4CAF50;
+                            font-size: 12px;
+                            font-weight: 600;
+                            padding: 2px 8px;
+                            border-radius: 6px;
+                            white-space: nowrap;
+                        ">
                             Selesai
                         </span>
                         @endif
                     </div>
 
-                    {{-- Tombol Tindak di kanan (warna kuning) --}}
+                    {{-- Action Button --}}
                     @can('admin')
                     <a href="{{ url('/admin/complaints/' . $complaint->id . '/edit') }}" style="
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 6px;
-                    background-color: #FFC107;
-                    color: #212121;
-                    font-size: 12px;
-                    font-weight: 600;
-                    padding: 6px 12px;
-                    border-radius: 6px;
-                    text-decoration: none;
-                    transition: background-color 0.2s;
-                    white-space: nowrap;
-                " onmouseover="this.style.backgroundColor='#FFB300'" onmouseout="this.style.backgroundColor='#FFC107'">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 6px;
+                        background-color: #FFC107;
+                        color: #212121;
+                        font-size: 12px;
+                        font-weight: 600;
+                        padding: 6px 12px;
+                        border-radius: 6px;
+                        text-decoration: none;
+                        transition: background-color 0.2s;
+                        white-space: nowrap;
+                        flex-shrink: 0;
+                    " onmouseover="this.style.backgroundColor='#FFB300'" onmouseout="this.style.backgroundColor='#FFC107'">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                         </svg>
@@ -125,15 +126,14 @@
                     @endcan
                 </div>
 
-                {{-- Waktu & Lokasi --}}
+                {{-- Time & Location --}}
                 <div style="
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                margin-top: 4px;
-                font-size: 12px;
-                color: #9E9E9E;
-            ">
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    font-size: 12px;
+                    color: #9E9E9E;
+                ">
                     <span>{{ $complaint->created_at->diffForHumans() }}</span>
                     <span>·</span>
                     <div style="display: flex; align-items: center; gap: 4px;">
@@ -150,26 +150,24 @@
         </div>
     </div>
 
-
-    {{-- Deskripsi --}}
+    {{-- Description --}}
     <div class="report-description" style="
         font-size: 14px;
         line-height: 1.6;
         color: #212121;
-        margin-top: 8px;
         margin-bottom: 12px;
     ">
         {{ $complaint->content }}
     </div>
 
-    {{-- Gambar --}}
+    {{-- Image --}}
     @if($complaint->media && $complaint->media->count() > 0)
-    <div class="report-image" style="margin-top: 12px;">
+    <div class="report-image" style="margin-bottom: 12px;">
         <img src="{{ Storage::url($complaint->media->first()->file_url) }}" alt="Gambar laporan" style="
-                    width: 100%;
-                    border-radius: 10px;
-                    object-fit: cover;
-                ">
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        ">
     </div>
     @endif
 
@@ -177,31 +175,31 @@
     @if(in_array($complaint->status, ['diproses', 'selesai']))
     @php
     $statusStyles = [
-    'diproses' => [
-    'bg' => '#FFF8E1',
-    'border' => '#FBC02D',
-    'title' => 'Sedang Diproses',
-    'desc' => 'Laporan Anda sedang ditinjau oleh pihak terkait.',
-    ],
-    'selesai' => [
-    'bg' => '#E8F5E9',
-    'border' => '#4CAF50',
-    'title' => 'Laporan Selesai',
-    'desc' => 'Laporan Anda telah selesai ditindaklanjuti. Terima kasih atas partisipasi Anda!',
-    ],
+        'diproses' => [
+            'bg' => '#FFF8E1',
+            'border' => '#FBC02D',
+            'title' => 'Sedang Diproses',
+            'desc' => 'Laporan Anda sedang ditinjau oleh pihak terkait.',
+        ],
+        'selesai' => [
+            'bg' => '#E8F5E9',
+            'border' => '#4CAF50',
+            'title' => 'Laporan Selesai',
+            'desc' => 'Laporan Anda telah selesai ditindaklanjuti. Terima kasih atas partisipasi Anda!',
+        ],
     ];
     $style = $statusStyles[$complaint->status];
     $latestProgress = $complaint->progress()->latest()->first();
     @endphp
 
     <div class="report-status" style="
-            background-color: {{ $style['bg'] }};
-            border-left: 4px solid {{ $style['border'] }};
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-top: 12px;
-            transition: all 0.3s ease-in-out;
-        ">
+        background-color: {{ $style['bg'] }};
+        border-left: 4px solid {{ $style['border'] }};
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        transition: all 0.3s ease-in-out;
+    ">
         <div style="font-size: 13px; font-weight: 600; color: #212121; margin-bottom: 4px;">
             {{ $style['title'] }}
         </div>
@@ -223,8 +221,7 @@
                 {{ $latestProgress->description }}
             </div>
             <div style="font-size: 11px; color: #9E9E9E;">
-                Oleh: <strong>{{ $latestProgress->admin->name ?? 'Admin' }}</strong> · {{
-                $latestProgress->created_at->format('d M Y H:i') }}
+                Oleh: <strong>{{ $latestProgress->admin->name ?? 'Admin' }}</strong> · {{ $latestProgress->created_at->format('d M Y H:i') }}
             </div>
 
             {{-- Progress Media (Foto) --}}
@@ -260,7 +257,7 @@
     {{-- All Progress Timeline --}}
     @if($complaint->progress && $complaint->progress->count() > 1)
     <div style="
-        margin-top: 12px;
+        margin-bottom: 12px;
         padding: 12px 16px;
         background-color: #FAFAFA;
         border: 1px solid #E0E0E0;
@@ -275,8 +272,7 @@
                 padding: 10px;
                 background-color: #FFFFFF;
                 border-radius: 6px;
-                border-left: 3px solid
-                @if($progress->status_update === 'selesai') #4CAF50 @else #FBC02D @endif;
+                border-left: 3px solid {{ $progress->status_update === 'selesai' ? '#4CAF50' : '#FBC02D' }};
             ">
                 <div style="font-size: 12px; font-weight: 600; color: #212121;">
                     {{ ucfirst($progress->status_update) }} - {{ $progress->created_at->format('d M Y') }}
@@ -292,9 +288,8 @@
         </div>
     </div>
     @endif
-    @endif
 
-    {{-- Footer Aksi --}}
+    {{-- Footer Actions --}}
     <livewire:components.complaint-actions :complaint="$complaint" :key="'actions-'.$complaint->id" />
 </div>
 @endif
