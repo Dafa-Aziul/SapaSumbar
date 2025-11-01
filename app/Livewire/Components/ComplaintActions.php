@@ -5,6 +5,7 @@ namespace App\Livewire\Components;
 use Livewire\Component;
 use App\Models\Complaint;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ComplaintActions extends Component
 {
@@ -26,7 +27,9 @@ class ComplaintActions extends Component
     public function vote()
     {
         if (!Auth::check()) return;
-
+        if (Gate::denies('user')) {
+            return;
+        }
         $voteQuery = $this->complaint->votes()->where('user_id', Auth::id());
 
         if ($voteQuery->exists()) {

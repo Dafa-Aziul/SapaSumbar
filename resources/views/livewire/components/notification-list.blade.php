@@ -21,7 +21,7 @@
             gap: 16px;
         ">
             @forelse($notifications as $notification)
-                <div 
+                <div
                     wire:key="notification-{{ $notification['id'] }}"
                     class="notification-item {{ $notification['is_read'] ? 'read' : 'unread' }}"
                     style="
@@ -83,8 +83,8 @@
                         margin-top: 12px;
                     ">
                         @php
-                            $createdAt = is_object($notification['created_at']) 
-                                ? $notification['created_at'] 
+                            $createdAt = is_object($notification['created_at'])
+                                ? $notification['created_at']
                                 : \Carbon\Carbon::parse($notification['created_at']);
                             echo $createdAt->diffForHumans();
                         @endphp
@@ -120,7 +120,7 @@
             .notification-page-wrapper {
                 padding: 12px !important;
             }
-            
+
             .page-title {
                 font-size: 18px !important;
                 margin-bottom: 16px !important;

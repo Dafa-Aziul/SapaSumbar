@@ -100,10 +100,10 @@ class ProgressRelationManager extends RelationManager
                     ->label('Admin'),
 
                 Tables\Columns\ImageColumn::make('media_images')
-                    ->label('Foto Bukti')
+                    ->label('Foto B ukti')
                     ->getStateUsing(
                         fn($record) =>
-                        $record->media->pluck('file_url')->map(fn($path) => asset( $path))->toArray()
+                        $record->media->pluck('file_url')->map(fn($path) => asset( 'storage/' .$path))->toArray()
                     )
                     ->disk('public')
                     ->square()

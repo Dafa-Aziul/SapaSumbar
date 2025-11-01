@@ -3,6 +3,21 @@
         class="hidden lg:flex flex-col w-60 bg-white fixed top-16 right-0 bottom-0 overflow-y-auto font-['Inter',sans-serif]"
         style="padding: 32px 24px; gap: 16px;">
 
+        {{-- Tombol Dashboard Admin --}}
+        @can('admin')
+        <a href="{{ url('/admin') }}"
+            class="w-full rounded-lg bg-[#D32F2F] text-white text-sm font-semibold flex items-center transition-colors hover:bg-[#B71C1C] active:bg-[#C62828] cursor-pointer"
+            style="height: 44px; padding-left: 8px; text-decoration: none;">
+            <svg class="w-4 h-4 text-white ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m-4 0h8a2 2 0 0 0 2-2v-6h3a1 1 0 0 1 1 1v9H2v-9a1 1 0 0 1 1-1h3z" />
+            </svg>
+            <span class="flex-1 text-center ml-2">Dashboard Admin</span>
+        </a>
+        @endcan
+
+        @can('user')
+
         <button type="button" wire:click="createReport"
             class="w-full rounded-lg bg-[#D32F2F] text-white text-sm font-semibold flex items-center transition-colors hover:bg-[#B71C1C] active:bg-[#C62828] cursor-pointer"
             style="height: 44px; padding-left: 8px;">
@@ -14,6 +29,8 @@
             </svg>
             <span class="flex-1 text-center ml-2">Buat Pengaduan</span>
         </button>
+        @endcan
+
 
         {{-- Dropdown Button - Terapkan Filter --}}
         <div x-data="{ filterOpen: false, statusOpen: false }" class="relative w-full">

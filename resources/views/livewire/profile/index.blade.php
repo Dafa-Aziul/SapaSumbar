@@ -142,77 +142,24 @@
         color: #9CA3AF;
     }
 
-    .btn-edit {
-        width: 42px;
-        height: 42px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #C62828;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.2s;
-        flex-shrink: 0;
-    }
-
-    .btn-edit:hover {
-        background-color: #B71C1C;
-    }
-
-    .btn-edit svg {
-        width: 18px;
-        height: 18px;
-        color: #FFFFFF;
-    }
-
-    .password-field {
-        display: flex;
-        align-items: center;
-        gap: 12px;
+    .form-value {
         flex: 1;
-    }
-
-    .btn-reset-password {
-        display: flex;
-        align-items: center;
-        gap: 8px;
         height: 42px;
-        padding: 0 16px;
-        background-color: #C62828;
-        color: #FFFFFF;
-        border: none;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
+        padding: 10px 14px;
+        font-size: 16px;
+        border: 1px solid #CBD5E1;
+        border-radius: 6px;
+        background-color: #F8FAFC;
+        color: #111827;
         font-family: 'Inter', sans-serif;
-    }
-
-    .btn-reset-password:hover {
-        background-color: #B71C1C;
-        box-shadow: 0 3px 6px rgba(220, 38, 38, 0.25);
-    }
-
-    .btn-reset-password:active {
-        transform: translateY(1px);
-    }
-
-    .btn-reset-password-icon {
-        width: 16px;
-        height: 16px;
         display: flex;
         align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
+        line-height: 1.4;
     }
 
-    .btn-reset-password-icon svg {
-        width: 16px;
-        height: 16px;
-        color: #FFFFFF;
-    }
+
+
+
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -279,25 +226,10 @@
 
         .form-input-group {
             width: 100%;
-        }
-
-        .password-field {
-            width: 100%;
-        }
-
-        .btn-reset-password {
-            width: 100%;
-            justify-content: center;
-        }
-
-        .form-input-group {
             flex-wrap: wrap;
         }
 
-        .btn-edit {
-            width: 100%;
-            height: 44px;
-        }
+
     }
 </style>
 
@@ -331,73 +263,32 @@
     <div class="profile-content">
         <h1 class="page-title">Pengaturan Profil</h1>
 
-        <form class="profile-form">
+        <div class="profile-form">
             {{-- Nama Field --}}
             <div class="form-field">
-                <label class="form-label" for="name">Nama</label>
+                <label class="form-label">Nama</label>
                 <div class="form-input-group">
-                    <input type="text"
-                           id="name"
-                           wire:model="name"
-                           class="form-input"
-                           placeholder="Nama Lengkap">
-                    <button type="button" class="btn-edit" onclick="enableEdit('name')">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                        </svg>
-                    </button>
+                    <span class="form-value">{{ auth()->user()->name }}</span>
                 </div>
             </div>
 
             {{-- Email Field --}}
             <div class="form-field">
-                <label class="form-label" for="email">Email</label>
+                <label class="form-label">Email</label>
                 <div class="form-input-group">
-                    <input type="email"
-                           id="email"
-                           wire:model="email"
-                           class="form-input"
-                           placeholder="nama@email.com"
-                           disabled>
+                    <span class="form-value">{{ auth()->user()->email }}</span>
                 </div>
             </div>
 
             {{-- No HP Field --}}
             <div class="form-field">
-                <label class="form-label" for="no_wa">No HP</label>
+                <label class="form-label">No HP</label>
                 <div class="form-input-group">
-                    <input type="tel"
-                           id="no_wa"
-                           wire:model="no_wa"
-                           class="form-input"
-                           placeholder="08xx-xxxx-xxxx"
-                           disabled>
+                    <span class="form-value">{{ auth()->user()->no_wa ?? 'Belum diisi' }}</span>
                 </div>
             </div>
-
-            {{-- Password Field --}}
-            <div class="form-field">
-                <label class="form-label">Password</label>
-                <div class="password-field">
-                    <button type="button" class="btn-reset-password">
-                        <span class="btn-reset-password-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H7v-4l1.743-1.743A6 6 0 0121 9z" />
-                            </svg>
-                        </span>
-                        Reset Password
-                    </button>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<script>
-    function enableEdit(fieldId) {
-        const input = document.getElementById(fieldId);
-        if (input && !input.disabled) {
-            input.focus();
-        }
-    }
-</script>
+

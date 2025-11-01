@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +32,10 @@
         </main>
 
         {{-- Right Sidebar --}}
+        @if (in_array(Route::currentRouteName(), ['home', 'my-complaints']))
         @livewire('components.sidebar-right')
+        @endif
+
     </div>
 
     {{-- Create Complaint Modal --}}
@@ -43,4 +47,5 @@
     @livewireScripts
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
+
 </html>

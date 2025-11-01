@@ -108,32 +108,34 @@
                     </div>
 
                     {{-- Comment Input --}}
-                    <div class="p-4 border-t border-gray-200 bg-gray-50">
-                        <div class="flex items-end gap-3">
-                            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white shadow-md">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                                </svg>
-                            </div>
-                            <div class="flex-1 relative">
-                                <input
-                                    type="text"
-                                    wire:model.live="comment"
-                                    wire:keydown.enter.prevent="submitComment"
-                                    placeholder="Tambah komentar..."
-                                    class="w-full bg-white border border-gray-300 rounded-2xl px-4 py-3 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
-                                />
-                                <button
-                                    wire:click="submitComment"
-                                    class="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 text-blue-500 hover:text-blue-600 focus:outline-none"
-                                >
+                    @can('user')
+                        <div class="p-4 border-t border-gray-200 bg-gray-50">
+                            <div class="flex items-end gap-3">
+                                <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white shadow-md">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                     </svg>
-                                </button>
+                                </div>
+                                <div class="flex-1 relative">
+                                    <input
+                                        type="text"
+                                        wire:model.live="comment"
+                                        wire:keydown.enter.prevent="submitComment"
+                                        placeholder="Tambah komentar..."
+                                        class="w-full bg-white border border-gray-300 rounded-2xl px-4 py-3 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+                                    />
+                                    <button
+                                        wire:click="submitComment"
+                                        class="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 text-blue-500 hover:text-blue-600 focus:outline-none"
+                                    >
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endcan
                 </div>
             </div>
         </div>
