@@ -10,54 +10,63 @@ class ComplaintActions extends Component
 {
     public $complaint;
     public $hasVoted = false;
+    public $showCommentModal = false;
+    public $comment = '';
 
     public function mount($complaint)
     {
-        // Pastikan complaint valid
-        if (is_numeric($complaint)) {
-            $this->complaint = Complaint::with(['votes', 'responses'])->find($complaint);
-        } else {
-            $this->complaint = $complaint;
-        }
+        $this->complaint = is_numeric($complaint)
+            ? Complaint::with(['votes', 'responses'])->find($complaint)
+            : $complaint;
 
-        // Cek apakah user sudah vote
-        if (Auth::check() && $this->complaint) {
-            $this->hasVoted = $this->complaint->votes()
-                ->where('user_id', Auth::id())
-                ->exists();
-        }
+        $this->hasVoted = Auth::check() &&
+            $this->complaint->votes()->where('user_id', Auth::id())->exists();
     }
 
     public function vote()
     {
-        if (!$this->complaint) {
-            session()->flash('error', 'Data laporan tidak ditemukan.');
-            return;
-        }
-
-        if (!Auth::check()) {
-            session()->flash('error', 'Harap login untuk memberikan vote.');
-            return;
-        }
+        if (!Auth::check()) return;
 
         $voteQuery = $this->complaint->votes()->where('user_id', Auth::id());
 
-        // 🔁 Jika user sudah vote → batalkan (hapus)
         if ($voteQuery->exists()) {
             $voteQuery->delete();
             $this->hasVoted = false;
-            session()->flash('success', 'Vote dibatalkan.');
-        }
-        else {
-            $this->complaint->votes()->create([
-                'user_id' => Auth::id(),
-            ]);
+        } else {
+            $this->complaint->votes()->create(['user_id' => Auth::id()]);
             $this->hasVoted = true;
-            session()->flash('success', 'Vote berhasil diberikan!');
         }
 
-        // Refresh relasi votes agar count terupdate
         $this->complaint->refresh();
+    }
+
+    public function openCommentModal()
+    {
+        // 🔥 kirim event global untuk dibaca oleh Livewire CommentModal
+        $this->dispatch('openCommentModal', id: $this->complaint->id);
+    }
+
+
+
+
+
+
+    public function closeCommentModal()
+    {
+        $this->showCommentModal = false;
+    }
+
+    public function submitComment()
+    {
+        $this->validate(['comment' => 'required|string|max:500']);
+
+        $this->complaint->responses()->create([
+            'user_id' => Auth::id(),
+            'content' => $this->comment,
+        ]);
+
+        $this->complaint->refresh();
+        $this->comment = '';
     }
 
     public function render()

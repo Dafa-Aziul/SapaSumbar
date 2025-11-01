@@ -43,11 +43,11 @@
         </a>
 
         {{-- Pengaduan Saya Menu --}}
-        <a href="/pengaduan-saya" class="flex flex-col items-center gap-1 group {{ request()->is('pengaduan-saya*') ? 'active' : '' }}">
-            <svg class="w-5 h-5 {{ request()->is('pengaduan-saya*') ? 'text-[#C1121F]' : 'text-[#757575] group-hover:text-[#C1121F] transition-colors' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a href="{{ route('my-complaints') }}" class="flex flex-col items-center gap-1 group {{ request()->is('my-complaints*') ? 'active' : '' }}">
+            <svg class="w-5 h-5 {{ request()->is('my-complaints*') ? 'text-[#C1121F]' : 'text-[#757575] group-hover:text-[#C1121F] transition-colors' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
-            <span class="text-xs font-medium {{ request()->is('pengaduan-saya*') ? 'text-[#C1121F]' : 'text-[#757575] group-hover:text-[#C1121F] transition-colors' }}">Pengaduan Saya</span>
+            <span class="text-xs font-medium {{ request()->is('my-complaints*') ? 'text-[#C1121F]' : 'text-[#757575] group-hover:text-[#C1121F] transition-colors' }}">Pengaduan Saya</span>
         </a>
 
         {{-- Notifikasi Menu --}}
@@ -68,7 +68,7 @@
         </a>
 
         {{-- Profile Menu --}}
-        <a href="/profile" class="flex flex-col items-center gap-1 group {{ request()->is('profile*') ? 'active' : '' }}">
+        <a href="{{ route('profile') }}" class="flex flex-col items-center gap-1 group {{ request()->is('profile*') ? 'active' : '' }}">
             <svg class="w-5 h-5 {{ request()->is('profile*') ? 'text-[#C1121F]' : 'text-[#757575] group-hover:text-[#C1121F] transition-colors' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
