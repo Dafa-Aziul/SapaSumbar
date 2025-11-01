@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('complaint_media', function (Blueprint $table) {
             $table->id();
             $table->foreignId('complaint_id')->constrained()->onDelete('cascade');
-            $table->string('media_path'); // path file gambar/video
+            $table->string('file_url'); // path file gambar/video
             $table->timestamps();
         });
     }

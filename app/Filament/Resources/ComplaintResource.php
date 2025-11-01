@@ -61,8 +61,8 @@ class ComplaintResource extends Resource
                         fn($record) =>
                         $record->media->pluck('file_url')->toArray()
                     )
-                    ->limit(3) // tampil maksimal 3 gambar (bisa diubah)
-                    ->stacked() // biar tampil berdampingan
+                    ->limit(3) 
+                    ->stacked() 
                     ->circular(),
 
 

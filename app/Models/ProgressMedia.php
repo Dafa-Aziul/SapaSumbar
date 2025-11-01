@@ -19,4 +19,8 @@ class ProgressMedia extends Model
     {
         return $this->belongsTo(ComplaintProgress::class, 'progress_id');
     }
+    public function getFilePublicUrlAttribute(): ?string
+    {
+        return $this->file_url ? asset('storage/' . $this->file_url) : null;
+    }
 }
