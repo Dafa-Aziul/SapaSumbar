@@ -20,6 +20,7 @@ class CreateComplaintModal extends Component
     public $lokasi;
     public $deskripsi;
     public $foto_bukti;
+    public $is_anonymous = false; // 🆕 Tambahan: laporan anonim
 
     /** 📦 Dropdown Options */
     public $kategoriOptions = [];
@@ -33,6 +34,7 @@ class CreateComplaintModal extends Component
         'lokasi' => 'nullable|string|max:255',
         'deskripsi' => 'required|string|min:10|max:5000',
         'foto_bukti' => 'nullable|image|max:2048',
+        'is_anonymous' => 'boolean',
     ];
 
     /**
@@ -58,7 +60,7 @@ class CreateComplaintModal extends Component
      */
     private function resetForm(): void
     {
-        $this->reset(['kategori', 'lokasi', 'deskripsi', 'foto_bukti']);
+        $this->reset(['kategori', 'lokasi', 'deskripsi', 'foto_bukti', 'is_anonymous']);
     }
 
     /**
@@ -68,12 +70,17 @@ class CreateComplaintModal extends Component
     {
         $this->validate();
 
-        // 🔹 Buat data pengaduan baru
+        // 🔹 Simpan pengaduan (tetap simpan user_id, tapi tandai anonim)
         $complaint = Complaint::create([
             'user_id' => Auth::id(),
             'category_id' => $this->kategori,
             'content' => $this->deskripsi,
             'location' => $this->lokasi,
+<<<<<<< HEAD
+=======
+            'status' => 'terkirim',
+            'is_anonymous' => $this->is_anonymous, // 🆕
+>>>>>>> 3752c4957490cf47d81c089ea6ad3d3021ea2b77
         ]);
 
         // 🔹 Upload foto (jika ada)
@@ -84,18 +91,17 @@ class CreateComplaintModal extends Component
                 'file_url' => $path,
                 'file_type' => 'image',
             ]);
-
         }
 
-        // 🔹 Beri tahu komponen lain agar daftar pengaduan di-refresh
+        // 🔹 Refresh daftar pengaduan
         $this->dispatch('complaintCreated');
 
-        // 🔹 Reset dan tutup modal
+        // 🔹 Reset form dan tutup modal
         $this->resetForm();
         $this->closeModal();
 
         // 🔹 Notifikasi sukses
-        session()->flash('success', 'Pengaduan berhasil dikirim!');
+        session()->flash('success', 'Pengaduan berhasil dikirim' . ($this->is_anonymous ? ' secara anonim.' : '!'));
     }
 
     /**
@@ -103,7 +109,7 @@ class CreateComplaintModal extends Component
      */
     public function render()
     {
-        // Ambil kategori terbaru setiap kali render
+        // Ambil kategori
         $this->kategoriOptions = Category::pluck('name', 'id')->toArray();
 
         return view('livewire.components.create-complaint-modal');

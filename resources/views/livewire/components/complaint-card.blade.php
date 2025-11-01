@@ -31,14 +31,16 @@
                 color: #1565C0;
                 flex-shrink: 0;
             ">
-                {{ strtoupper(substr($complaint->user->name ?? 'U', 0, 1)) }}
+                {{-- 🟩 Jika anonim, tampilkan huruf “A” --}}
+                {{ $complaint->is_anonymous ? 'A' : strtoupper(substr($complaint->user->name ?? 'U', 0, 1)) }}
             </div>
 
             {{-- Nama, Kategori, Status --}}
             <div style="flex: 1; min-width: 0;">
                 <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
+                    {{-- 🟩 Jika anonim, tampilkan teks “Anonim” --}}
                     <span style="font-size: 15px; font-weight: 600; color: #212121;">
-                        {{ $complaint->user->name ?? 'Anonim' }}
+                        {{ $complaint->is_anonymous ? 'Anonim' : ($complaint->user->name ?? 'Pengguna') }}
                     </span>
 
                     {{-- Kategori --}}
@@ -131,7 +133,7 @@
     </div>
     @endif
 
-    {{-- Status Box (hanya jika diproses / selesai) --}}
+    {{-- Status Box (diproses / selesai) --}}
     @if(in_array($complaint->status, ['diproses', 'selesai']))
     @php
     $statusStyles = [
