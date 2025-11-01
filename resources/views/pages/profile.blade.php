@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Profile - LangsungTindak')
+@section('title', 'Profile - Sapa Sumbar')
 
 @section('content')
 <div class="container mx-auto px-6 py-8 max-w-7xl">

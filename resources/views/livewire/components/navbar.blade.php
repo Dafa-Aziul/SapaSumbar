@@ -1,13 +1,18 @@
 <div>
 <nav class="fixed top-0 left-0 right-0 z-50 h-16 w-full max-w-full bg-white border-b border-[#E0E0E0] px-4 md:px-6 flex items-center justify-between font-['Inter','Roboto',sans-serif] text-[#212121] text-sm">
     {{-- Area Kiri (Branding) --}}
-    <div class="flex items-center gap-2 flex-shrink-0">
+    <div class="flex items-center gap-1 flex-shrink-0">
         {{-- Logo Box --}}
-        <div class="w-8 h-8 bg-[#C1121F] rounded-[4px] flex items-center justify-center flex-shrink-0">
-            <span class="text-white font-bold text-base leading-none">L</span>
+        <div class="flex items-center justify-center flex-shrink-0">
+            <img 
+                src="{{ asset('image/SapaSumbar.png') }}" 
+                alt="Sapa Sumbar Logo"
+                class="h-25 w-auto object-contain md:h-25"
+                style="max-height: 125px;"
+            >
         </div>
         {{-- Brand Text --}}
-        <span class="text-[#212121] text-sm md:text-base font-semibold ml-1 md:ml-2 whitespace-nowrap">LangsungTindak</span>
+        <span class="text-sm md:text-base font-bold" style="color: #760206 !important;">Sapa Sumbar</span>
     </div>
 
     {{-- Area Tengah (Search Bar) - Tablet & Desktop --}}

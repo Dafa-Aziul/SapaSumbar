@@ -8,7 +8,7 @@
             {{-- Section: Kategori --}}
             <section style="margin-bottom: 24px;">
                 {{-- Title Kategori --}}
-                <h2 class="text-[13px] font-semibold text-[#616161] mb-2 tracking-[0.3px]">Kategori</h2>
+                <h2 class="text-[13px] font-bold text-[#616161] mb-2 tracking-[0.3px]">Kategori</h2>
                 
                 {{-- Menu Items --}}
                 <div class="flex flex-col" style="gap: 4px;">
@@ -85,7 +85,7 @@
                 {{-- Section: Kategori --}}
                 <section style="margin-bottom: 24px;">
                     {{-- Title Kategori --}}
-                    <h2 class="text-[13px] font-semibold text-[#616161] mb-2 tracking-[0.3px]">Kategori</h2>
+                    <h2 class="text-[13px] font-bold text-[#616161] mb-2 tracking-[0.3px]">Kategori</h2>
                     
                     {{-- Menu Items --}}
                     <div class="flex flex-col" style="gap: 4px;">

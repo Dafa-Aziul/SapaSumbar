@@ -1,8 +1,9 @@
 @extends('layouts.main')
 
-@section('title', 'Home - LangsungTindak')
+@section('title', 'Home - Sapa Sumbar')
 
 @section('content')
-{{-- Halaman kosong, hanya navbar yang ditampilkan --}}
+{{-- Report List Component --}}
+@livewire('components.report-list')
 @endsection
 
