@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Pengaduan Saya - LangsungTindak')
+@section('title', 'Pengaduan Saya - Sapa Sumbar')
 
 @section('content')
 <div class="container mx-auto px-6 py-8 max-w-7xl">
