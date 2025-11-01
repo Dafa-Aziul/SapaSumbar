@@ -3,10 +3,12 @@
 namespace App\Filament\Resources\ComplaintResource\Pages;
 
 use App\Filament\Resources\ComplaintResource;
-use Filament\Actions\CreateAction;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Actions\EditAction;
+use Filament\Resources\Pages\ViewRecord;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Table;
 
-class ListComplaints extends ListRecords
+class ViewComplaint extends ViewRecord
 {
     protected static string $resource = ComplaintResource::class;
 
@@ -15,4 +17,5 @@ class ListComplaints extends ListRecords
         return [
         ];
     }
+    
 }

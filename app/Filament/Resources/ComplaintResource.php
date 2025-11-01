@@ -2,15 +2,26 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ComplaintResource\Pages;
-use App\Models\Complaint;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Columns\BadgeColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms;
+use Filament\Tables;
+use App\Models\Complaint;
+use Filament\Schemas\Schema;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Resources\Resource;
+use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\Select;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ImageEntry;
+use App\Filament\Resources\ComplaintResource\Pages;
+use App\Filament\Resources\ComplaintResource\Pages\EditComplaint;
+use App\Filament\Resources\ComplaintResource\Pages\ViewComplaint;
+use App\Filament\Resources\ComplaintResource\Pages\ListComplaints;
+use App\Filament\Resources\ComplaintResource\Pages\CreateComplaint;
 
 class ComplaintResource extends Resource
 {
@@ -19,7 +30,7 @@ class ComplaintResource extends Resource
     protected static ?string $navigationLabel = 'Complaints';
     protected static \UnitEnum|string|null $navigationGroup = 'Laporan Pengaduan';
 
-    // \U0001f4cb Table tampilan Complaints
+    // 📋 Tabel Complaint
     public static function table(Tables\Table $table): Tables\Table
     {
         return $table
@@ -41,11 +52,17 @@ class ComplaintResource extends Resource
                     ->label('Deskripsi')
                     ->limit(50),
 
-                // \U0001f5bc\ufe0f Tampilkan gambar pertama dari tabel complaint_media
-                ImageColumn::make('media.file_url')
+                // 🖼️ Ambil gambar pertama dari relasi media
+                ImageColumn::make('lampiran')
                     ->label('Lampiran')
-                    ->circular()
-                    ->limit(1),
+                    ->getStateUsing(
+                        fn($record) =>
+                        $record->media->pluck('file_url')->toArray()
+                    )
+                    ->limit(3) // tampil maksimal 3 gambar (bisa diubah)
+                    ->stacked() // biar tampil berdampingan
+                    ->circular(),
+
 
                 BadgeColumn::make('status')
                     ->label('Status')
@@ -68,8 +85,7 @@ class ComplaintResource extends Resource
             ])
             ->filters([])
             ->actions([
-                // \u270f\ufe0f Hanya bisa edit status
-                \Filament\Actions\EditAction::make()
+                EditAction::make()
                     ->label('Ubah Status')
                     ->form([
                         Select::make('status')
@@ -81,30 +97,29 @@ class ComplaintResource extends Resource
                             ])
                             ->required(),
                     ]),
-                \Filament\Actions\DeleteAction::make(),
+                DeleteAction::make(),
+                ViewAction::make(),
             ])
             ->bulkActions([
-                \Filament\Actions\DeleteBulkAction::make(),
+                DeleteBulkAction::make(),
             ]);
     }
 
-    // \U0001f6ab Hilangkan form create (admin tidak buat aduan)
-    public static function form(\Filament\Schemas\Schema $schema): \Filament\Schemas\Schema
+    public static function form(Schema $schema): Schema
     {
         return $schema->schema([]);
     }
 
-    // \U0001f517 Tidak perlu relation manager di halaman ini
     public static function getRelations(): array
     {
         return [];
     }
 
-    // \U0001f9ed Halaman
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListComplaints::route('/'),
+            'view' => Pages\ViewComplaint::route('/{record}'),
             'edit' => Pages\EditComplaint::route('/{record}/edit'),
         ];
     }
@@ -112,5 +127,29 @@ class ComplaintResource extends Resource
     public static function shouldRegisterNavigation(): bool
     {
         return true;
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                TextEntry::make('id')->label('ID'),
+                TextEntry::make('user.name')->label('Pelapor'),
+                TextEntry::make('category.name')->label('Kategori'),
+                TextEntry::make('content')->label('Deskripsi'),
+
+                ImageEntry::make('lampiran')
+                    ->label('Lampiran')
+                    ->getStateUsing(
+                        fn($record) =>
+                        $record->media->map(fn($m) => $m->file_url)->toArray()
+                    )
+                    ->hidden(fn($record) => $record->media->isEmpty())
+                    ->columnSpanFull()
+                    ->limit(3)
+                    ->circular(),
+
+                TextEntry::make('status')->columnSpanFull(),
+            ]);
     }
 }
