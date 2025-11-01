@@ -74,7 +74,6 @@ class CreateComplaintModal extends Component
             'category_id' => $this->kategori,
             'content' => $this->deskripsi,
             'location' => $this->lokasi,
-            'status' => 'pending',
         ]);
 
         // 🔹 Upload foto (jika ada)
