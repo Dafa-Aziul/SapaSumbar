@@ -99,15 +99,16 @@ class ProgressRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('admin.name')
                     ->label('Admin'),
 
-               Tables\Columns\ImageColumn::make('media_images')
-    ->label('Foto Bukti')
-    ->getStateUsing(fn ($record) => 
-        $record->media->pluck('file_url')->map(fn ($path) => asset('storage/' . $path))->toArray()
-    )
-    ->disk('public')
-    ->square()
-    ->stacked()
-    ->limit(3),
+                Tables\Columns\ImageColumn::make('media_images')
+                    ->label('Foto Bukti')
+                    ->getStateUsing(
+                        fn($record) =>
+                        $record->media->pluck('file_url')->map(fn($path) => asset( $path))->toArray()
+                    )
+                    ->disk('public')
+                    ->square()
+                    ->stacked()
+                    ->limit(3),
 
 
                 Tables\Columns\TextColumn::make('created_at')

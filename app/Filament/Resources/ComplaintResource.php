@@ -54,16 +54,16 @@ class ComplaintResource extends Resource
                     ->label('Deskripsi')
                     ->limit(50),
 
-                // 🖼️ Ambil gambar pertama dari relasi media
                 ImageColumn::make('lampiran')
                     ->label('Lampiran')
                     ->getStateUsing(
                         fn($record) =>
-                        $record->media->pluck('file_url')->toArray()
+                        $record->media->map(fn($m) => asset( $m->file_url))->toArray()
                     )
-                    ->limit(3) 
-                    ->stacked() 
+                    ->limit(3)
+                    ->stacked()
                     ->circular(),
+
 
 
                 BadgeColumn::make('status')
@@ -146,12 +146,13 @@ class ComplaintResource extends Resource
                     ->label('Lampiran')
                     ->getStateUsing(
                         fn($record) =>
-                        $record->media->map(fn($m) => $m->file_url)->toArray()
+                        $record->media->map(fn($m) => asset( $m->file_url))->toArray()
                     )
                     ->hidden(fn($record) => $record->media->isEmpty())
                     ->columnSpanFull()
                     ->limit(3)
                     ->circular(),
+
 
                 TextEntry::make('status')->columnSpanFull(),
             ]);
