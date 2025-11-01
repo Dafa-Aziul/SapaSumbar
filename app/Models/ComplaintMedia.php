@@ -11,7 +11,7 @@ class ComplaintMedia extends Model
 
     protected $fillable = [
         'complaint_id',
-        'media_path',
+        'file_url',
         'file_type',
     ];
 
@@ -20,9 +20,12 @@ class ComplaintMedia extends Model
         return $this->belongsTo(Complaint::class);
     }
 
-    // accessor otomatis: hasilkan URL publik dari media_path
-    public function getFileUrlAttribute()
+    /**
+     * Accessor otomatis untuk menampilkan URL publik file.
+     * Supaya <img src="{{ $media->file_public_url }}"> bisa langsung dipakai di view.
+     */
+    public function getFilePublicUrlAttribute(): ?string
     {
-        return $this->media_path ? asset('storage/' . $this->media_path) : null;
+        return $this->file_url ? asset('storage/' . $this->file_url) : null;
     }
 }

@@ -9,16 +9,18 @@ class ComplaintProgress extends Model
 {
     use HasFactory;
 
+    protected $table = 'complaint_progress';
+
     protected $fillable = [
         'complaint_id',
         'admin_id',
-        'description',
         'status_update',
+        'description',
     ];
 
     public function complaint()
     {
-        return $this->belongsTo(Complaint::class);
+        return $this->belongsTo(Complaint::class, 'complaint_id');
     }
 
     public function admin()
@@ -27,7 +29,8 @@ class ComplaintProgress extends Model
     }
 
     public function media()
-    {
-        return $this->hasMany(ProgressMedia::class, 'progress_id');
-    }
+{
+    return $this->hasMany(ProgressMedia::class, 'progress_id');
+}
+
 }

@@ -22,6 +22,8 @@ use App\Filament\Resources\ComplaintResource\Pages\EditComplaint;
 use App\Filament\Resources\ComplaintResource\Pages\ViewComplaint;
 use App\Filament\Resources\ComplaintResource\Pages\ListComplaints;
 use App\Filament\Resources\ComplaintResource\Pages\CreateComplaint;
+use App\Filament\Resources\ComplaintResource\RelationManagers\ProgressRelationManager;
+
 
 class ComplaintResource extends Resource
 {
@@ -112,7 +114,9 @@ class ComplaintResource extends Resource
 
     public static function getRelations(): array
     {
-        return [];
+        return [
+            ProgressRelationManager::class,
+        ];
     }
 
     public static function getPages(): array

@@ -36,9 +36,6 @@ class ComplaintMediaRelationManager extends RelationManager
                 TextColumn::make('file_type')->label('Tipe File'),
                 TextColumn::make('created_at')->label('Diupload')->dateTime(),
             ])
-            ->headerActions([
-                \Filament\Tables\Actions\CreateAction::make(),
-            ])
             ->actions([
                 \Filament\Actions\EditAction::make(),
                 \Filament\Actions\DeleteAction::make(),

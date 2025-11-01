@@ -49,7 +49,8 @@ class Complaint extends Model
     }
 
     public function progress()
-    {
-        return $this->hasMany(ComplaintProgress::class);
-    }
+{
+    return $this->hasMany(ComplaintProgress::class, 'complaint_id');
+}
+
 }

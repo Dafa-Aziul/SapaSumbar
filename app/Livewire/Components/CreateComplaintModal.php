@@ -74,17 +74,18 @@ class CreateComplaintModal extends Component
             'category_id' => $this->kategori,
             'content' => $this->deskripsi,
             'location' => $this->lokasi,
-            'status' => 'pending',
+            'status' => 'terkirim',
         ]);
 
         // 🔹 Upload foto (jika ada)
         if ($this->foto_bukti) {
-            $path = $this->foto_bukti->store('complaints', 'public');
+            $path = $this->foto_bukti->store('complaints/media', 'public');
 
             $complaint->media()->create([
-                'file_url' => 'storage/' . $path,
-                'file_type' => 'image', // ✅ sudah benar
+                'file_url' => $path,
+                'file_type' => 'image',
             ]);
+
         }
 
         // 🔹 Beri tahu komponen lain agar daftar pengaduan di-refresh
