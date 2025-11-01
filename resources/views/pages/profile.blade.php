@@ -69,9 +69,10 @@
     /* Content Area */
     .profile-content {
         flex: 1;
-        padding: 40px 60px;
+        padding: 40px 24px;
         background-color: #FFFFFF;
         min-width: 0;
+        overflow-y: auto;
     }
 
     .page-title {
@@ -85,6 +86,7 @@
 
     .profile-form {
         max-width: 600px;
+        width: 100%;
     }
 
     /* ======================================
@@ -105,9 +107,11 @@
         font-weight: 500;       /* 5. Menyesuaikan ketebalan font label */
         color: #4B5563;
         margin-bottom: 0;       /* 6. Menghapus margin bawah */
-        flex-basis: 80px;       /* 7. Memberi lebar tetap pada label */
+        flex-basis: 120px;      /* 7. Memberi lebar tetap pada label */
         flex-shrink: 0;         /* 8. Mencegah label menyusut */
         font-family: 'Inter', sans-serif;
+        white-space: nowrap;
+        overflow: visible;
     }
 
     .form-input-group {
@@ -115,6 +119,7 @@
         align-items: center;
         gap: 8px;
         flex: 1;                /* 9. Membuat grup input mengisi sisa ruang */
+        min-width: 0;
     }
 
     .form-input {
@@ -344,21 +349,21 @@
         <h1 class="page-title">Pengaturan Profil</h1>
 
         <form class="profile-form">
-            {{-- 
+            {{--
             ======================================
             PERUBAHAN UTAMA HTML DIMULAI DI SINI
             ======================================
             --}}
-            
+
             {{-- Nama Field --}}
             <div class="form-field">
                 <label class="form-label" for="name">Nama</label>
                 <div class="form-input-group">
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         id="name"
                         name="name"
-                        class="form-input" 
+                        class="form-input"
                         value="{{ auth()->user()->name ?? '' }}"
                         placeholder="Nama Lengkap"
                         {{-- Atribut "disabled" DIHAPUS agar background putih --}}
@@ -375,11 +380,11 @@
             <div class="form-field">
                 <label class="form-label" for="email">Email</label>
                 <div class="form-input-group">
-                    <input 
-                        type="email" 
+                    <input
+                        type="email"
                         id="email"
                         name="email"
-                        class="form-input" 
+                        class="form-input"
                         value="{{ auth()->user()->email ?? '' }}"
                         placeholder="nama@email.com"
                         disabled {{-- Biarkan disabled agar background abu-abu --}}
@@ -392,11 +397,11 @@
             <div class="form-field">
                 <label class="form-label" for="no_wa">No HP</label>
                 <div class="form-input-group">
-                    <input 
-                        type="tel" 
+                    <input
+                        type="tel"
                         id="no_wa"
                         name="no_wa"
-                        class="form-input" 
+                        class="form-input"
                         value="{{ auth()->user()->no_wa ?? '' }}"
                         placeholder="08xx-xxxx-xxxx"
                         disabled {{-- Biarkan disabled agar background abu-abu --}}
@@ -421,8 +426,8 @@
                     </button>
                 </div>
             </div>
-            
-            {{-- 
+
+            {{--
             ======================================
             PERUBAHAN UTAMA HTML BERAKHIR DI SINI
             ======================================

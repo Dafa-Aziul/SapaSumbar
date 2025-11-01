@@ -31,17 +31,17 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/profile', ProfileIndex::class)->name('profile');
 
-    Route::get('/pengaduan-saya', function () {
-        return view('pages.pengaduan-saya');
-    })->name('pengaduan-saya');
+    // Route::get('/pengaduan-saya', function () {
+    //     return view('pages.pengaduan-saya');
+    // })->name('pengaduan-saya');
 
-    Route::get('/notifikasi', function () {
-        return view('pages.notifikasi');
-    })->name('notifikasi');
+    // Route::get('/notifikasi', function () {
+    //     return view('pages.notifikasi');
+    // })->name('notifikasi');
 
-    Route::get('/maps', function () {
-        return view('pages.maps');
-    })->name('maps');
+    // Route::get('/maps', function () {
+    //     return view('pages.maps');
+    // })->name('maps');
 
     // Route::get('/profile', function () {
     //     return view('pages.profile');
