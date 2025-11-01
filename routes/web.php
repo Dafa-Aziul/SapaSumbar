@@ -18,9 +18,30 @@ Route::get('/login', [LoginUserController::class, 'showLoginForm'])->name('login
 Route::post('/login', [LoginUserController::class, 'login'])->name('login.store');
 Route::post('/logout', [LoginUserController::class, 'logout'])->middleware('auth')->name('logout');
 
-Route::get('/', function () {
-    return view('homepage');
-})->middleware('auth')->name('dashboard');
+// Semua route di bawah hanya bisa diakses jika sudah login
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/', function () {
+        return view('pages.home');
+    })->name('home');
+
+    Route::get('/pengaduan-saya', function () {
+        return view('pages.pengaduan-saya');
+    })->name('pengaduan-saya');
+
+    Route::get('/notifikasi', function () {
+        return view('pages.notifikasi');
+    })->name('notifikasi');
+
+    Route::get('/maps', function () {
+        return view('pages.maps');
+    })->name('maps');
+
+    Route::get('/profile', function () {
+        return view('pages.profile');
+    })->name('profile');
+});
+
 
 
 Route::get('/admin-dashboard', function () {
