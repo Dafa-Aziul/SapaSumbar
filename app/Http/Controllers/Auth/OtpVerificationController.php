@@ -4,52 +4,31 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Session;
 
 class OtpVerificationController extends Controller
 {
-    /**
-     * Menampilkan form verifikasi OTP.
-     */
+    // Tampilkan form OTP
     public function showForm()
     {
-        return view('auth.verify-otp');
+        $email = session('register_email');
+        if (!$email) {
+            return redirect()->route('register.show')->with('info', 'Silakan daftar terlebih dahulu.');
+        }
+        return view('auth.verify-otp', compact('email'));
     }
 
-    /**
-     * Memproses verifikasi OTP.
-     */
+    // Verifikasi OTP
     public function verify(Request $request)
     {
         $request->validate([
-            'otp' => 'required|numeric',
+            'otp' => 'required|digits:6'
         ]);
 
-        $userId = Session::get('pending_user_id');
-        $user = User::find($userId);
-
-        if (!$user) {
-            return redirect()
-                ->route('register.show')
-                ->withErrors(['user' => 'Sesi registrasi tidak ditemukan. Silakan daftar ulang.']);
+        // Dummy OTP check
+        if ($request->otp == '123456') {
+            return redirect()->route('login.show')->with('info', 'OTP berhasil. Silakan login.');
         }
 
-        // OTP default dummy
-        $defaultOtp = 123456;
-
-        if ($request->otp == $defaultOtp) {
-            $user->is_verified = true;
-            $user->otp_code = null;
-            $user->save();
-
-            Session::forget('pending_user_id');
-
-            return redirect()
-                ->route('login')
-                ->with('success', 'Akun berhasil diverifikasi! Silakan login.');
-        }
-
-        return back()->withErrors(['otp' => 'Kode OTP salah, silakan coba lagi.']);
+        return back()->withErrors(['otp' => 'OTP salah, coba lagi.']);
     }
 }
