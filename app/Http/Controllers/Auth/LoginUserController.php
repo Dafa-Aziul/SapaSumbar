@@ -39,7 +39,7 @@ class LoginUserController extends Controller
 
             // Jika role user biasa, arahkan ke dashboard
             if ($user->role === 'user') {
-                return redirect()->intended('/dashboard')
+                return redirect()->intended('/')
                     ->with('success', 'Selamat datang di dashboard!');
             }
 
