@@ -26,7 +26,7 @@ class OtpVerificationController extends Controller
 
         // Dummy OTP check
         if ($request->otp == '123456') {
-            return redirect()->route('login.show')->with('info', 'OTP berhasil. Silakan login.');
+            return redirect()->route('login')->with('info', 'OTP berhasil. Silakan login.');
         }
 
         return back()->withErrors(['otp' => 'OTP salah, coba lagi.']);
