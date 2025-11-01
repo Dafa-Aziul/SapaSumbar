@@ -1,6 +1,6 @@
 <div>
     <aside
-        class="hidden lg:flex flex-col w-60 h-screen bg-white sticky top-16 overflow-y-auto font-['Inter',sans-serif]"
+        class="hidden lg:flex flex-col w-60 bg-white fixed top-16 right-0 bottom-0 overflow-y-auto font-['Inter',sans-serif]"
         style="padding: 32px 24px; gap: 16px;">
 
         <button type="button" wire:click="createReport"
