@@ -6,23 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('complaint_media', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('complaint_id')->constrained('complaints')->onDelete('cascade');
-            $table->text('file_url');
-            $table->string('file_type', 20); // image / video
+            $table->foreignId('complaint_id')->constrained()->onDelete('cascade');
+            $table->string('media_path'); // path file gambar/video
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('complaint_media');
