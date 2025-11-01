@@ -18,9 +18,11 @@ Route::get('/login', [LoginUserController::class, 'showLoginForm'])->name('login
 Route::post('/login', [LoginUserController::class, 'login'])->name('login.store');
 Route::post('/logout', [LoginUserController::class, 'logout'])->middleware('auth')->name('logout');
 
-// Dashboard (auth protected)
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('auth')->name('dashboard');
+
+
+Route::get('/admin-dashboard', function () {
+    return view('admin.dashboard');
+})->middleware(['auth', 'admin']);
