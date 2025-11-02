@@ -58,7 +58,7 @@ class ComplaintResource extends Resource
                     ->label('Lampiran')
                     ->getStateUsing(
                         fn($record) =>
-                        $record->media->map(fn($m) => asset( $m->file_url))->toArray()
+                        $record->media->map(fn($m) => asset( 'storage/'.$m->file_url))->toArray()
                     )
                     ->limit(3)
                     ->stacked()
@@ -146,7 +146,7 @@ class ComplaintResource extends Resource
                     ->label('Lampiran')
                     ->getStateUsing(
                         fn($record) =>
-                        $record->media->map(fn($m) => asset( $m->file_url))->toArray()
+                        $record->media->map(fn($m) => asset( 'storage/'.$m->file_url))->toArray()
                     )
                     ->hidden(fn($record) => $record->media->isEmpty())
                     ->columnSpanFull()
