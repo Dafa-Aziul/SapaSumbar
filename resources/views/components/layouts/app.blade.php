@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="icon" type="image/png" sizes="150x150" href="{{ asset('image/SapaSumbar.png') }}">
+
     <title>{{ $title ?? config('app.name', 'Sapa Sumbar') }}</title>
 
     <!-- Fonts -->

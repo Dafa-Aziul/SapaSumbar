@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Profile;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-
+use Livewire\Attributes\Title;
+use Livewire\Component;
+#[Title('Profil Saya - Sapa Sumbar')]
 class Index extends Component
 {
     public $name;
